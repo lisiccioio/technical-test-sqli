@@ -1,29 +1,22 @@
 import { test as base } from '@playwright/test';
-import { DropdownPage } from './pages/DropdownPage';
-import { LoginPage } from './pages/LoginPage';
-import { SecurePage } from './pages/SecurePage';
-import { TablesPage } from './pages/TablesPage';
+import { PetApi } from './api/petstore/pet/PetApiMethods';
+import { UserApi } from './api/petstore/user/UserApiMethods';
+import { PageFactory } from './pages/PageFactory';
 
 type MyFixtures = {
-    dropdownPage: DropdownPage;
-    loginPageOpened: LoginPage;
-    tablesPage: TablesPage;
-    securePage: SecurePage;
+    pages: PageFactory;
+    petApi: PetApi;
+    userApi: UserApi;
 };
 
 export const test = base.extend<MyFixtures>({
-    dropdownPage: async ({ page }, use) => {
-        await use(new DropdownPage(page));
+    pages: async ({ page }, use) => {
+        await use(new PageFactory(page));
     },
-    loginPageOpened: async ({ page }, use) => {
-        const loginPage = new LoginPage(page);
-        await loginPage.goto();
-        await use(loginPage);
+    petApi: async ({ request }, use) => {
+        await use(new PetApi(request));
     },
-    securePage: async ({ page }, use) => {
-        await use(new SecurePage(page));
+    userApi: async ({ request }, use) => {
+        await use(new UserApi(request));
     },
-    tablesPage: async ({ page }, use) => {
-        await use(new TablesPage(page));
-    }
 });
