@@ -16,6 +16,7 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    screenshot: 'only-on-failure',
     launchOptions: {
       slowMo: 1500,
     },
