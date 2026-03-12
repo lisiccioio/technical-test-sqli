@@ -16,7 +16,7 @@ test('Web automation test', async ({ pages }) => {
     })
 
     await test.step('Check the year in which the first automatic process was done', async () => {
-        expect(pages.wikiPage.isOnPage('1624')).toBeTruthy;
+        expect(await pages.wikiPage.getContent()).toHaveText(/1624/);
     })
 
     await test.step('Take a screenshot of the Wikipedia page', async () => {
